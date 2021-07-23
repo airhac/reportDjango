@@ -6,6 +6,16 @@
         <h1>
             TEST
         </h1>
+    <form action="/reports/hello_world/" method="post">{# 우선 요청을 하려는 주소를 넣어 주어야한다. post를 사용할 것이다를 명시 #}
+        {# 어떠한 interaction, event 가 있어야 서버로 요청이 보내진다. #}
+        {%  csrf_token %}
+        <input type="submit" class="'btn btn-primary" value="POST">
+    </form>
+        {# 서버에게 보내는 요청 명세서, 어떤 글이나 파일을 첨부하는 모든 데이터들이 이 form 안에 다 들어간다#}
+        <h1>
+            {{ text }}{# 이데이터 이름을 명시해주면 text가 존재한다면 return 해준다.#}
+        </h1>
+
     </div>
 
 {% endblock %}
