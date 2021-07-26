@@ -2,20 +2,33 @@
 
 {% block content %}
 
-    <div style="height: 20rem; background-color: aqua; margin: 2rem; border-radius: 1rem; font-size: 1rem;">
-        <h1>
-            TEST
+    <div style="margin: 2rem; border-radius: 1rem; text-align:  center">
+        <h1 style="font-family: 'Single Day', cursive;">
+            {# 여기서 cursive는 Yeon Sung이 어떠한 이유로 없다면은 curvise를 대신써라고 명시해 주는 것이다. #}
+            한문 단어 리스트
         </h1>
     <form action="/reports/hello_world/" method="post">{# 우선 요청을 하려는 주소를 넣어 주어야한다. post를 사용할 것이다를 명시 #}
         {# 어떠한 interaction, event 가 있어야 서버로 요청이 보내진다. #}
         {%  csrf_token %}
-        <input type="submit" class="'btn btn-primary" value="POST">
+        <div>
+            <input type="text" name="hello_world_input">
+            {# 서버로 보낼 데이터를 넣는 방법이랑 그 보내는 data를 구분 할 수 있는 구분자의 이름을 정해둔다 #}
+        </div>
+        <div>
+            <input type="submit" class="'btn btn-primary" value="POST">
+        </div>
     </form>
         {# 서버에게 보내는 요청 명세서, 어떤 글이나 파일을 첨부하는 모든 데이터들이 이 form 안에 다 들어간다#}
-        <h1>
-            {{ text }}{# 이데이터 이름을 명시해주면 text가 존재한다면 return 해준다.#}
-        </h1>
-
+        {% if hello_world_list %}
+            {% for hello_world in hello_world_list %}
+                <h4>
+                    {{ hello_world.text }}
+                    {# 이데이터 이름을 명시해주면 text가 존재한다면 return 해준다.#}
+                    {# hello_world_list 객체를 통째로 받아오면 데이터를 가지고 오는 query set이 보여지게 됩니다 #}
+                    {#  dl list는 배열과도 같아서 for문을 돌려줘도 된다. #}
+                </h4>
+            {% endfor %}
+        {% endif %}
     </div>
 
 {% endblock %}
