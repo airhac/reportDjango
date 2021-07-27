@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div style="text-align: center">
+    <form action="{% url 'reportapp:create' %}" method="post">
+        {% csrf_token %}
+        {{ form }} {# 우리가 원하는 form을 그대로 가져와 준다 #}
+        <input type="'submit" class="btn btn-primary" value="제출">
+        </form>
+    </div>
+{% endblock %}
