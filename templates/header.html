@@ -6,6 +6,17 @@
         <span>nav1</span>
         <span>nav2</span>
         <span>nav3</span>
-        <span>nav4</span>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'reportapp:login' %}?next={{ request.path }}">
+            {#로그인을 하고나서 원래있던 자리로 돌아 가도록 합니다.#}
+                {# 로그인이나 로그아웃을 완성하고 나서 다시갈 경로를 얻어주도록한다.#}
+                {# request.path는 요청자가 이전에 있던 페이지를 알려준다(넘겨준다.) #}
+                 <span>login</span>
+            </a>
+        {% else %}
+            <a href="{% url 'reportapp:logout' %}?next={{ request.path }}">
+                <span>logout</span>
+            </a>
+        {% endif %}
     </div>
 </div>
