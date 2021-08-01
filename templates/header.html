@@ -1,6 +1,6 @@
 <div style="text-align: center; margin: 2rem 0;">
     <div>
-        <h1 class="hanmun_header_logo";>한문 교육 사이트</h1>
+        <h1 class="hanmun_header_logo">한문 교육 사이트</h1>
     </div>
     <div class="hanmun_header_button">
         <span>nav1</span>
@@ -14,6 +14,11 @@
                  <span>login</span>
             </a>
         {% else %}
+            <a href="{% url 'reportapp:detail' pk=user.pk%}">
+            {# 현재 유저의 pk를 pk에 저장 #}
+                <span>MyPage</span>
+            </a>
+            {# 로그인이 되어 있다면 Mypage로 넘어가는 링크를 만들어 줄것이다. #}
             <a href="{% url 'reportapp:logout' %}?next={{ request.path }}">
                 <span>logout</span>
             </a>
