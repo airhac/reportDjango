@@ -13,6 +13,22 @@
                 {{ target_user.username }}
                 {# 다른 user가 오더라도 그 사람이 보고자 하는 class객체의 target_user의 정보를 보여주게 되는 것이다. #}
             </h2>
+
+            {% if target_user == user %}
+                {# 현재 들어와 있는 객체의 정보가 지금 접속하고 있는 user인지 확인 하는 작업 #}
+                <a href="{% url 'reportapp:update' pk=user.pk %}">
+                    <p>
+                        Change Info
+                    </p>
+                </a>
+                <a href="{% url 'reportapp:delete' pk=user.pk %}">
+                    <p>
+                        Quit
+                        {# 탈퇴로 향하는 링크를 만들어 준다. #}
+                    </p>
+                </a>
+            {% endif %}
+
         </div>
     </div>
 

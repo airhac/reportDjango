@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
 from reportapp.models import HelloWorld
 
@@ -41,3 +41,17 @@ class AccountDetailView(DetailView):
     #이부분은 우리가 확인하고 싶은 유저의 정보를 볼수 있도록 확인하고자 하는 pk의 유저를 가지고 있어야한다.
     #template에서 사용하는 user객체 이름을 다르게 설정 할 수 가 있다.
     template_name = 'reportapp/detail.html'
+
+class AccountUpdateView(UpdateView):#CreateView를 상속받는다.
+    model = User
+    #장고에서 기본적으로 제공해주는 모델
+    #User Model을 만드는데 필요한 form 이 필요
+    form_class = UserCreationForm
+    success_url = reverse_lazy('reportapp:hello_world')
+    #어느 계정으로 다시 재 연결 할 것인가
+    template_name = 'reportapp/update.html'
+
+class AccountDeleteView(DeleteView):
+    model = User
+    success_url = reverse_lazy('reportapp:login')
+    template_name = 'reportapp/delete.html'
