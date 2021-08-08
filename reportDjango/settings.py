@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'reportapp',
     'bootstrap4',
+    'profileapp',
+    'articleapp',
 ]
 
 MIDDLEWARE = [
@@ -150,3 +152,11 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = reverse_lazy('reportapp:hello_world')
 LOGOUT_REDIRECT_URL = reverse_lazy('reportapp:hello_world')
+
+MEDIA_URL = '/media/'
+#주소창에 media 밑의 경로로 접근해야 이미지 파일에 접근 가능
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#미디어 파일을 서버에 올렸을때 어느 경로에 지정이 될것인지 그 경로의 루트에 대한 정보
+# Default primary key field type
+# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-fiel
+

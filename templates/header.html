@@ -3,7 +3,12 @@
         <h1 class="hanmun_header_logo">한문 교육 사이트</h1>
     </div>
     <div class="hanmun_header_button">
-        <span>nav1</span>
+        <span>
+            <a href="{% url 'articleapp:list'%}">
+            {# 현재 유저의 pk를 pk에 저장 #}
+                <span>Articles</span>
+            </a>
+        </span>
         <span>nav2</span>
         {% if not user.is_authenticated %}
             <a href="{% url 'reportapp:login' %}?next={{ request.path }}">

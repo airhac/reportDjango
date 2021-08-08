@@ -1,32 +1,40 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.shortcuts import render
 
 # Create your views here.
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
 
+from reportapp.decorators import account_ownership_required
 from reportapp.models import HelloWorld
 
-
+has_ownership = [
+    account_ownership_required, login_required
+]
+@login_required
+# 장고 자체에서 제공해주는 decorator
 def hello_world(request):
 
-    if request.method == "POST":
-        temp = request.POST.get('hello_world_input')
-        new_hello_world = HelloWorld()
-        new_hello_world.text = temp
-        new_hello_world.save()
+        if request.method == "POST":
+            temp = request.POST.get('hello_world_input')
+            new_hello_world = HelloWorld()
+            new_hello_world.text = temp
+            new_hello_world.save()
 
-        #hello_world_list = HelloWorld.objects.all()
-        #request에서 post method 중에서 get은 hello_world_input이라는 이름을 가진 데이터를 가지고 와라
-        #return render(request, 'reportapp/hello_world.html', context={'hello_world_list': hello_world_list})#template이름을 적어준다.
-        return HttpResponseRedirect(reverse('reportapp:hello_world'))
-        #여기서 reverse함수는 urls.py에서 설정한 URL의 name이나, viewname을 통해서 다시 url로 되돌릴 수 있다.
-    else:
-        hello_world_list = HelloWorld.objects.all()
-        # request에서 post method 중에서 get은 hello_world_input이라는 이름을 가진 데이터를 가지고 와라
-        return render(request, 'reportapp/hello_world.html', context={'hello_world_list': hello_world_list})
+            #hello_world_list = HelloWorld.objects.all()
+            #request에서 post method 중에서 get은 hello_world_input이라는 이름을 가진 데이터를 가지고 와라
+            #return render(request, 'reportapp/hello_world.html', context={'hello_world_list': hello_world_list})#template이름을 적어준다.
+            return HttpResponseRedirect(reverse('reportapp:hello_world'))
+            #여기서 reverse함수는 urls.py에서 설정한 URL의 name이나, viewname을 통해서 다시 url로 되돌릴 수 있다.
+        else:
+            hello_world_list = HelloWorld.objects.all()
+            # request에서 post method 중에서 get은 hello_world_input이라는 이름을 가진 데이터를 가지고 와라
+            return render(request, 'reportapp/hello_world.html', context={'hello_world_list': hello_world_list})
+
 
 class AccountCreateView(CreateView):#CreateView를 상속받는다.
     model = User #장고에서 기본적으로 제공해주는 모델
@@ -42,16 +50,25 @@ class AccountDetailView(DetailView):
     #template에서 사용하는 user객체 이름을 다르게 설정 할 수 가 있다.
     template_name = 'reportapp/detail.html'
 
+
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
+#일반 function에 사용하는 decorator를 method에 사용할 수 있도록 변환해주는 decorator이다.
 class AccountUpdateView(UpdateView):#CreateView를 상속받는다.
     model = User
     #장고에서 기본적으로 제공해주는 모델
     #User Model을 만드는데 필요한 form 이 필요
     form_class = UserCreationForm
+    context_object_name = 'target_user'
     success_url = reverse_lazy('reportapp:hello_world')
     #어느 계정으로 다시 재 연결 할 것인가
     template_name = 'reportapp/update.html'
 
+@method_decorator(has_ownership, 'get')
+@method_decorator(has_ownership, 'post')
 class AccountDeleteView(DeleteView):
     model = User
+    context_object_name = 'target_user'
     success_url = reverse_lazy('reportapp:login')
     template_name = 'reportapp/delete.html'
+
