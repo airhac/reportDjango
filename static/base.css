@@ -11,4 +11,22 @@
 
 .hanmun_header_button{
     font-size: .6rem;
+    margin: 1rem 0;
+}
+@media screen and (max-width: 500px) {
+    html{
+        font_size: 13px;
+    }
+}
+a {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: none;
+}
+.prgmatic_header_nav{
+    margin: 0 0.5rem;
 }

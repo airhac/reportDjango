@@ -11,17 +11,18 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('articleapp', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Profile',
+            name='Comment',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(null=True, upload_to='profile/')),
-                ('nickname', models.CharField(max_length=20, null=True, unique=True)),
-                ('message', models.CharField(max_length=100, null=True)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='profile', to=settings.AUTH_USER_MODEL)),
+                ('content', models.TextField()),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('article', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='comment', to='articleapp.article')),
+                ('writer', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='comment', to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]

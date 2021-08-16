@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 from django.db import models
-
 # Create your models here.
-class Article(models.Model):
-    writer = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='article', null=True )
-    #user 객체에서 article을 접근할때 related_name을 사용한다.
+from projectapp.models import Project
 
+class Article(models.Model):
+    writer = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='article', null=True)
+    #user 객체에서 article을 접근할때 related_name을 사용한다.
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, related_name='article', null=True)
     title = models.CharField(max_length=200, null=True)
     image = models.ImageField(upload_to='article/', null=False) # 이미지를 항상 넣도록 한다.
     content = models.TextField(null=True)

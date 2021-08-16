@@ -4,32 +4,43 @@
     </div>
     <div class="hanmun_header_button">
         <span>
-            <a href="{% url 'articleapp:list'%}">
+            <a href="{% url 'articleapp:list'%}" class="prgmatic_header_nav">
             {# 현재 유저의 pk를 pk에 저장 #}
                 <span>Articles</span>
             </a>
         </span>
-        <span>nav2</span>
+        <span>
+            <a href="{% url 'projectapp:list'%}" class="prgmatic_header_nav">
+            {# 현재 유저의 pk를 pk에 저장 #}
+                <span>Projects</span>
+            </a>
+        </span>
+        <span>
+            <a href="{% url 'subscribeapp:list'%}" class="prgmatic_header_nav">
+            {# 현재 유저의 pk를 pk에 저장 #}
+                <span>Subscribes</span>
+            </a>
+        </span>
         {% if not user.is_authenticated %}
-            <a href="{% url 'reportapp:login' %}?next={{ request.path }}">
+            <a href="{% url 'reportapp:login' %}?next={{ request.path }}" class="prgmatic_header_nav">
             {#로그인을 하고나서 원래있던 자리로 돌아 가도록 합니다.#}
                 {# 로그인이나 로그아웃을 완성하고 나서 다시갈 경로를 얻어주도록한다.#}
                 {# request.path는 요청자가 이전에 있던 페이지를 알려준다(넘겨준다.) #}
                  <span>login</span>
             </a>
-            <a href="{% url 'reportapp:create' %}?next={{ request.path }}">
+            <a href="{% url 'reportapp:create' %}?next={{ request.path }}" class="prgmatic_header_nav">
             {#로그인을 하고나서 원래있던 자리로 돌아 가도록 합니다.#}
                 {# 로그인이나 로그아웃을 완성하고 나서 다시갈 경로를 얻어주도록한다.#}
                 {# request.path는 요청자가 이전에 있던 페이지를 알려준다(넘겨준다.) #}
                  <span>SignUp</span>
             </a>
         {% else %}
-            <a href="{% url 'reportapp:detail' pk=user.pk%}">
+            <a href="{% url 'reportapp:detail' pk=user.pk%}" class="prgmatic_header_nav">
             {# 현재 유저의 pk를 pk에 저장 #}
                 <span>MyPage</span>
             </a>
             {# 로그인이 되어 있다면 Mypage로 넘어가는 링크를 만들어 줄것이다. #}
-            <a href="{% url 'reportapp:logout' %}?next={{ request.path }}">
+            <a href="{% url 'reportapp:logout' %}?next={{ request.path }}" class="prgmatic_header_nav">
                 <span>logout</span>
             </a>
         {% endif %}

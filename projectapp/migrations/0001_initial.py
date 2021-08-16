@@ -12,10 +12,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='HelloWorld',
+            name='Project',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(max_length=225)),
+                ('image', models.ImageField(upload_to='project/')),
+                ('title', models.CharField(max_length=20)),
+                ('description', models.TextField(max_length=200, null=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

@@ -7,14 +7,16 @@ from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView
+from django.views.generic.edit import FormMixin
 
 from articleapp.decorator import article_ownership_required
 from articleapp.forms import ArticleCreationForm
 from articleapp.models import Article
+from commentapp.forms import CommentCreationForm
 
 
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
+@method_decorator(login_required(login_url='/reports/login/'), 'get')
+@method_decorator(login_required(login_url='/reports/login/'), 'post')
 class ArticleCreateView(CreateView):
     model = Article
     form_class = ArticleCreationForm
@@ -29,8 +31,10 @@ class ArticleCreateView(CreateView):
     def get_success_url(self):
         return reverse('articleapp:detail', kwargs={'pk': self.object.pk})
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(DetailView, FormMixin):
     model = Article
+    form_class = CommentCreationForm
+    #form을 가져와 사용할 수 있게 됩니다
     context_object_name = 'target_article'
     template_name = 'articleapp/detail.html'
 

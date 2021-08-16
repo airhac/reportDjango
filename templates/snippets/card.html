@@ -1,3 +1,8 @@
-<div>
+
+<div style="display: block; text-align: center">
     <img src="{{ article.image.url }}" alt="">
+    <h5 class="a mt-2" style="font-family: 'NanumSquareEB' ">
+        {{ article.title | truncatechars:8 }}
+        {# 몇글자 만 나오고 ..으로 처리 해준다. #}
+    </h5>
 </div>

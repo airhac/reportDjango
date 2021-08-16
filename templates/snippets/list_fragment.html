@@ -1,7 +1,4 @@
-{% extends 'base.html' %}
 {% load static %}
-{%  block content %}
-
     <style>
         .container {
             padding: 0;
@@ -33,7 +30,7 @@
         </div>
         <script src="{% static 'js/magicgrid.js' %}"></script>
     {% else %}
-        <div class="test-center">
+        <div class="text-center">
             <h1>No Article Yet!!!</h1>
         </div>
     {% endif %}
@@ -45,5 +42,3 @@
             Create Article
         </a>
     </div>
-
-{% endblock %}

@@ -29,6 +29,16 @@
             </a>
             {% endif %}
         <hr>
+
+        {% for comment in target_article.comment.all %}
+        {# 여기서 targe_article은 현재 게시글을 의미, 그래서 현재 게시글에 있는 모든 comment를 가져오도록 합니다.#}
+            {% include 'commentapp/detail.html' with comment=comment %}
+            {# 댓글 하나 하나 올릴려고 한다. #}
+        {% endfor %}
+
+        {% include 'commentapp/create.html' with article=target_article %}
+        {# commentapp아래에 있는 create.html을 가져오는데 create.html에 있는 article을 with를 가지고 현재 articleapp에 있는 target_article과 동기화를 시켜줍니다. #}
+        {# 이렇게 하면 create.html에서 article이라는 인자를 사용할 수 있게 됩니다. #}
         </div>
     </div>
 

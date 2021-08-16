@@ -1,0 +1,23 @@
+{# 이 부분이 다른 html에 불려가기 때문에 'base.html'을 extends를 안해도 됩니다.#}
+{% load bootstrap4 %}
+
+    <div style="text-align: center; max-width: 500px;  margin: 4rem auto">
+        <div class="mb-4">
+            <h4>Comment Create</h4>
+        </div>
+        <form action="{% url 'commentapp:create' %}" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}{# 우리가 원하는 form을 그대로 가져와 준다 #}
+            {% if user.is_authenticated %}
+            <input type="submit" class="btn btn-dark rounded-pill col-6 mx-3" value="제출">
+            <input type="hidden" name="article_pk" value="{{ article.pk }}">
+            {# article을 서버단에서 확인하기 위해서 hidden input을 만든다. 현재 article의 pk가 value값으로 넘겨주면서 서버에 받아서 comment를 받을떄 완성#}
+            {#  article에 있는 pk를 서버로 보낼 것 입니다. 여기서 조심해야할 것은 이 값이 브라우저에서 조작이 가능하게 됩니다.  #}
+            {% else %}
+                <a href="{% url 'reportapp:login' %}?next={{ request.path }}"
+                class="btn btn-dark rounded-pill col-6 mx-3">
+                 Login
+                </a>
+            {% endif %}
+        </form>
+    </div>
