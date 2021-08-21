@@ -37,6 +37,8 @@ class ProjectDetailView(DetailView,MultipleObjectMixin):
 
         if user.is_authenticated:
             subscription = Subscription.objects.filter(user=user, project=project)
+        else:
+            subscription = None
 
         object_list=Article.objects.filter(project=self.get_object())
         #현재 project와 같은 article을 filtering해서 object_list에 넣어 줍니다.

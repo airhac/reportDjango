@@ -12,32 +12,13 @@ from django.views.generic.list import MultipleObjectMixin
 
 from articleapp.models import Article
 from reportapp.decorators import account_ownership_required
-from reportapp.models import HelloWorld
+
 
 has_ownership = [
     account_ownership_required, login_required(login_url='/reports/login/')
 ]
 
 # 장고 자체에서 제공해주는 decorator
-def hello_world(request):
-
-        if request.method == "POST":
-            temp = request.POST.get('hello_world_input')
-            new_hello_world = HelloWorld()
-            new_hello_world.text = temp
-            new_hello_world.save()
-
-            #hello_world_list = HelloWorld.objects.all()
-            #request에서 post method 중에서 get은 hello_world_input이라는 이름을 가진 데이터를 가지고 와라
-            #return render(request, 'reportapp/hello_world.html', context={'hello_world_list': hello_world_list})#template이름을 적어준다.
-            return HttpResponseRedirect(reverse('reportapp:hello_world'))
-            #여기서 reverse함수는 urls.py에서 설정한 URL의 name이나, viewname을 통해서 다시 url로 되돌릴 수 있다.
-        else:
-            hello_world_list = HelloWorld.objects.all()
-            # request에서 post method 중에서 get은 hello_world_input이라는 이름을 가진 데이터를 가지고 와라
-            return render(request, 'reportapp/hello_world.html', context={'hello_world_list': hello_world_list})
-
-
 class AccountCreateView(CreateView):#CreateView를 상속받는다.
     model = User #장고에서 기본적으로 제공해주는 모델
     #User Model을 만드는데 필요한 form 이 필요

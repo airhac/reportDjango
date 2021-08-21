@@ -153,8 +153,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-LOGIN_REDIRECT_URL = reverse_lazy('reportapp:hello_world')
-LOGOUT_REDIRECT_URL = reverse_lazy('reportapp:hello_world')
+LOGIN_REDIRECT_URL = reverse_lazy('reportapp:home')
+LOGOUT_REDIRECT_URL = reverse_lazy('reportapp:home')
 
 MEDIA_URL = '/media/'
 #주소창에 media 밑의 경로로 접근해야 이미지 파일에 접근 가능
